@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
     </html>`)
 });
 
-// Code exemple: il est executé chaque fois que quelqu'un va sur http://172.18.126.3/toto
+// Code exemple: il est executé chaque fois que quelqu'un va sur http://172.18.126.3:3000/toto
 app.get('/toto', async (req, res) => {
     // Récupération des données
     const result = await clientDB.query('select * from gammeporsche join moteurporsche ON gammeporsche.moteur=moteurporsche.moteur join typevoiture on moteurporsche.carburant=typevoiture.carburant;');
