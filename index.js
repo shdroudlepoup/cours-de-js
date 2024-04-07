@@ -3,6 +3,8 @@ import pg from 'pg';
 import bodyParser from 'body-parser';
 const { Client } = pg;
 
+import {form} from './demo.js';
+
 // COnnexion à la base de données, une fois pour toute
 const clientDB = new Client({
     user: 'remig',
@@ -25,6 +27,8 @@ app.get('/', (req, res) => {
     </body>
     </html>`)
 });
+
+app.get('/demo', form);
 
 // Code exemple: il est executé chaque fois que quelqu'un va sur http://172.18.126.3:3000/toto
 app.get('/toto', async (req, res) => {
@@ -195,6 +199,15 @@ const displayGammeporsche = async (req, res) => {
   console.log('Requete display');
   const result = await clientDB.query('select * from gammeporsche order by modele;');
   let tableRows = '';
+  /* Lancer une requete pour avois la liste des moteurs
+  
+  Puis, créer une nouvelle variable contenant d'abord <select name="moteur">
+  Pour chaque moteur trouvé dans la base de données, ajouter <option value="${ligne.moteur}">${ligne.moteur}</option> à cette nouvelle chaîne de caractère
+  A la fin, ajouter </select>
+
+
+  Ensuite remplacer le <input name="moteur" ...> par ${nouvelleChaine}
+  */
   result.rows.forEach(row => {
     tableRows += `<form method="POST">
       <input type="hidden" name="update" value="1" />
