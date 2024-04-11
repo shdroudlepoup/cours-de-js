@@ -208,13 +208,18 @@ const displayGammeporsche = async (req, res) => {
 
   Ensuite remplacer le <input name="moteur" ...> par ${nouvelleChaine}
   */
-  result.rows.forEach(row => {
+  const resultMoteurs = await clientDB.query('SELECT moteur FROM gammeporsche');
+  let selectHTML = '<select name="moteur">';
+  tableRows = ''; // Réinitialiser tableRows ici
+  resultMoteurs.rows.forEach(row => {
+    selectHTML += `<option value="${row.moteur}">${row.moteur}</option>`;
+    
     tableRows += `<form method="POST">
       <input type="hidden" name="update" value="1" />
       <input type="hidden" name="ancienmodele" value="${row.modele}" /></td>
       <tr>
         <td><input name="modele" value="${row.modele}" /></td>
-        <td><input name="moteur" value="${row.moteur}" /></td>
+        <td>${nouvelleChaine}</td> <!-- Remplacer le champ d'entrée du moteur par nouvelleChaine -->
         <td><input name="puissance" value="${row.puissance}" /></td>
         <td><button type="submit">Sauvegarde ligne</button></td>
         <td><button onclick="efface('${row.modele}','${row.moteur}','${row.puissance}')">Boom</button></td>
@@ -222,8 +227,9 @@ const displayGammeporsche = async (req, res) => {
     </form>
     `;
   });
-
-  res.send(`<html>
+  selectHTML += '</select>';
+  res.send(`
+  <html>
   <body>
       Hello <b>toto</b>
       <table>
@@ -237,7 +243,7 @@ const displayGammeporsche = async (req, res) => {
       <h1>Ajouter un modele</h1>
       <form method="POST">
         <label>Modele<input name="modele" /></label>
-        <label>Moteur<input name="moteur" /></label>
+        ${selectHTML} <!-- Ajout du select ici -->
         <label>Puissance<input name="puissance" /></label>
         <button type="submit">OK</button>
       </form>
@@ -263,7 +269,8 @@ const displayGammeporsche = async (req, res) => {
     })
   }
   </script>
-  </html>`)
+  </html>
+  `);
 };
 
 app.get('/gammeporsche', async (req, res) => {

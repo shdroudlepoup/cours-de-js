@@ -29,11 +29,11 @@ export const form = (req, res) => {
         Choisi ta couleur <input name="couleur" type="color" /> <br/>
 
         <select name="monchoix">
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
+            <option value="volvo">   Volvo   </option>
+            <option value="saab">    Saab    </option>
             <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
-        </select> <br/>
+            <option value="audi">    Audi    </option>
+        </select> <br/>    
 
         <button type="submit">OK</submit>
         <button type="reset">Reset"</reset>
