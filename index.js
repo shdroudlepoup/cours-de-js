@@ -197,9 +197,23 @@ app.post('/moteur', async (req, res) => {
 
 const displayGammeporsche = async (req, res) => {
   console.log('Requete display');
+
+  const resultMoteurs = await clientDB.query('SELECT moteur FROM moteurporsche');
+  const selectMoteur = (moteur) => {
+    let selectHTML = '<select name="moteur">';
+    resultMoteurs.rows.forEach(row => {
+      selectHTML += `<option value="${row.moteur}"`;
+      if (row.moteur == moteur) selectHTML += 'selected'
+      selectHTML += `>${row.moteur}</option>`;
+    });
+    selectHTML += '</select>';
+    return selectHTML
+  }
+
   const result = await clientDB.query('select * from gammeporsche order by modele;');
+
   let tableRows = '';
-  /* Lancer une requete pour avois la liste des moteurs
+  /* Lancer une requete pour avoir la liste des moteurs
   
   Puis, créer une nouvelle variable contenant d'abord <select name="moteur">
   Pour chaque moteur trouvé dans la base de données, ajouter <option value="${ligne.moteur}">${ligne.moteur}</option> à cette nouvelle chaîne de caractère
@@ -208,18 +222,15 @@ const displayGammeporsche = async (req, res) => {
 
   Ensuite remplacer le <input name="moteur" ...> par ${nouvelleChaine}
   */
-  const resultMoteurs = await clientDB.query('SELECT moteur FROM gammeporsche');
-  let selectHTML = '<select name="moteur">';
-  tableRows = ''; // Réinitialiser tableRows ici
-  resultMoteurs.rows.forEach(row => {
-    selectHTML += `<option value="${row.moteur}">${row.moteur}</option>`;
+  const resultVl = await clientDB.query('SELECT * FROM gammeporsche');
+  resultVl.rows.forEach(row => {
     
     tableRows += `<form method="POST">
       <input type="hidden" name="update" value="1" />
       <input type="hidden" name="ancienmodele" value="${row.modele}" /></td>
       <tr>
         <td><input name="modele" value="${row.modele}" /></td>
-        <td>${nouvelleChaine}</td> <!-- Remplacer le champ d'entrée du moteur par nouvelleChaine -->
+        <td>${selectMoteur(row.moteur)}</td> <!-- Remplacer le champ d'entrée du moteur par nouvelleChaine -->
         <td><input name="puissance" value="${row.puissance}" /></td>
         <td><button type="submit">Sauvegarde ligne</button></td>
         <td><button onclick="efface('${row.modele}','${row.moteur}','${row.puissance}')">Boom</button></td>
@@ -227,7 +238,6 @@ const displayGammeporsche = async (req, res) => {
     </form>
     `;
   });
-  selectHTML += '</select>';
   res.send(`
   <html>
   <body>
@@ -243,7 +253,7 @@ const displayGammeporsche = async (req, res) => {
       <h1>Ajouter un modele</h1>
       <form method="POST">
         <label>Modele<input name="modele" /></label>
-        ${selectHTML} <!-- Ajout du select ici -->
+        ${selectMoteur()} <!-- Ajout du select ici -->
         <label>Puissance<input name="puissance" /></label>
         <button type="submit">OK</button>
       </form>
