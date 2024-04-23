@@ -1,9 +1,10 @@
-import express, { application } from 'express';
+import express from 'express';
 import bodyParser from 'body-parser';
 
 
 // Importer les fonctions de vos fichiers
 import { displayGammeporsche, updateGammePorsche } from './Gammeporsche.js';
+import { displayMoteurPorsche, updateMoteurPorsche } from './MoteurPorsche.js';
 //import { displayMoteurPorsche } from './MoteurPorsche.js';
 
 // Connexion à la base de données, une fois pour toute
@@ -18,8 +19,8 @@ app.use(bodyParser.json())
 // Utilisez les fonctions comme d'habitude
 app.get('/gammeporsche', displayGammeporsche);
 app.post('/gammeporsche', updateGammePorsche)
-//app.get('/moteurporsche', displayMoteurPorsche);
-
+app.get('/moteurporsche', displayMoteurPorsche);
+app.post('/moteurporsche', updateMoteurPorsche);
 // Code Remi
 app.get('/', (req, res) => {
     res.send(`<html>

@@ -19,15 +19,6 @@ export const displayGammeporsche = async (req, res) => {
 
   let tableRows = '';
 
-  /* Lancer une requete pour avoir la liste des moteurs
-  
-  Puis, créer une nouvelle variable contenant d'abord <select name="moteur">
-  Pour chaque moteur trouvé dans la base de données, ajouter <option value="${ligne.moteur}">${ligne.moteur}</option> à cette nouvelle chaîne de caractère
-  A la fin, ajouter </select>
-
-
-  Ensuite remplacer le <input name="moteur" ...> par ${nouvelleChaine}
-  */
   const resultVl = await clientDB.query('SELECT * FROM gammeporsche');
   resultVl.rows.forEach(row => {
     
