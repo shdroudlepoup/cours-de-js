@@ -11,6 +11,8 @@ import { displayMoteurPorsche, updateMoteurPorsche } from './MoteurPorsche.js';
 
 
 
+// C'etait vachement mieux comme ça
+
 const app = express();
 
 app.use(bodyParser.urlencoded({extended: false}));
