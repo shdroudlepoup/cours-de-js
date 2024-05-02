@@ -10,6 +10,7 @@ import { displayMoteurPorsche, updateMoteurPorsche } from './MoteurPorsche.js';
 // Connexion à la base de données, une fois pour toute
 
 
+// Pas d'accord, vachement plus mieux ici
 
 // C'etait vachement mieux comme ça
 
