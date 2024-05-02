@@ -19,6 +19,10 @@ export const displayGammeporsche = async (req, res) => {
 
   let tableRows = '';
 
+
+  /* Je fais n'importe quoi */
+
+
   const resultVl = await clientDB.query('SELECT * FROM gammeporsche');
   resultVl.rows.forEach(row => {
     
