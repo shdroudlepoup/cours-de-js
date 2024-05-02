@@ -16,13 +16,20 @@ export const displayMoteurPorsche = async (req, res) => {
     return selectHTML
   }
   
-  const result = await clientDB.query('select * from moteurporsche order by moteur;');
-
   let tableRows = '';
 
   const resultVl = await clientDB.query('SELECT * FROM moteurporsche');
+  console.log('result', typeof resultVl); // object
+  console.log('result.rows', typeof resultVl.rows);  // object mais en fait c'est un "array"
+  console.log('result.rows en vrai', resultVl.rows);  // Va afficher le contenu en le transformant en JSON pour pouvoir l'afficher
+  console.log('Le meme en JSON', JSON.stringify(resultVl.rows))
   resultVl.rows.forEach(row => {
-    
+
+
+    console.log('row', typeof row);  // object correspondant à une ligne de la base de données : {"moteur":...}
+    console.log('row en vrai', row);  // Affiche la "map"
+    console.log('row.moteur', typeof row.moteur);  // string
+    console.log('row.moteur en vrai', row.moteur);  // string
     tableRows += `<form method="POST">
       <input type="hidden" name="update" value="1" />
       <input type="hidden" name="ancienmoteur" value="${row.moteur}" /></td>
