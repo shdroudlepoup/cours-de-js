@@ -12,6 +12,8 @@ const clientDB = new Client({
 
 clientDB.connect();
 
+// C'etait vachement mieux comme ça
+
 const app = express();
 
 app.use(bodyParser.urlencoded({extended: false}));
