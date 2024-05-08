@@ -16,3 +16,5 @@ Ensuite montre moi en `curl` comment ajouter une voiture. Pour les moteurs, la c
 ```shell
 curl -i -XPOST -d 'moteur=aba' -d 'carburant=Essence' -d 'puissance=1050' http://172.18.126.3:3000/api/moteurporsche
 ```
+
+Et quand ça marche, n'oublie pas de "commiter" et synchroniser avec GitHub :wink:
