@@ -5,14 +5,8 @@ import bodyParser from 'body-parser';
 // Importer les fonctions de vos fichiers
 import { displayGammeporsche, updateGammePorsche } from './Gammeporsche.js';
 import { displayMoteurPorsche, updateMoteurPorsche } from './MoteurPorsche.js';
-//import { displayMoteurPorsche } from './MoteurPorsche.js';
 
-// Connexion à la base de données, une fois pour toute
-
-
-// Pas d'accord, vachement plus mieux ici
-
-// C'etait vachement mieux comme ça
+import { apiDisplayMoteurPorsche, apiUpdateMoteurPorsche } from './api/moteur.js';
 
 const app = express();
 
@@ -24,6 +18,9 @@ app.get('/gammeporsche', displayGammeporsche);
 app.post('/gammeporsche', updateGammePorsche)
 app.get('/moteurporsche', displayMoteurPorsche);
 app.post('/moteurporsche', updateMoteurPorsche);
+
+app.get('/api/moteurporsche', apiDisplayMoteurPorsche);
+app.post('/api/moteurporsche', apiUpdateMoteurPorsche);
 // Code Remi
 app.get('/', (req, res) => {
     res.send(`<html>
