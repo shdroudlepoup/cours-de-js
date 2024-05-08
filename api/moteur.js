@@ -45,7 +45,8 @@ export const apiUpdateMoteurPorsche = async (req, res) => {
     else {
     console.log('RIEN', req.body)
     }
-    res.send(KSON.stringify({result: true}));
+    res.setHeader('content-type', 'application/json');
+    res.send(JSON.stringify({result: true}));
   } catch(error) {
     console.error('Erreur', error)
     res.status(500);
