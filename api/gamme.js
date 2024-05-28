@@ -1,26 +1,24 @@
 import { clientDB } from "../dbAccess.js";
 
-const carburants = [ "Essence", "Gasoil", "Electricite" ]
-
-export const apiDisplayMoteurPorsche = async (req, res) => {
+export const apiDisplayGammeporsche = async (req, res) => {
   console.log('Requete display');
 
   let tableRows = '';
 
-  const resultVl = await clientDB.query('SELECT * FROM moteurporsche');
+  const resultVl = await clientDB.query('SELECT * FROM gammeporsche');
   res.setHeader('content-type', 'application/json');
   res.send(JSON.stringify(resultVl.rows));
 };
 
-export const apiUpdateMoteurPorsche = async (req, res) => {
+export const apiUpdateGammeporsche = async (req, res) => {
   console.log('Requete update');
   try {
     if (req.body.delete) {
     console.log('Requete DELETE');
     await clientDB.query(
         {
-            text: 'DELETE FROM moteurporsche WHERE moteur=$1 AND carburant=$2 AND puissance=$3',
-            values: [req.body.moteur, req.body.carburant, req.body.puissance]
+            text: 'DELETE FROM gammeporsche WHERE modele=$1 AND moteur=$2 AND puissance=$3',
+            values: [req.body.modele, req.body.moteur, req.body.puissance]
         }
     )
     }
@@ -28,17 +26,17 @@ export const apiUpdateMoteurPorsche = async (req, res) => {
     console.log('Requete update', req.body);
     await clientDB.query(
         {
-        text: 'UPDATE moteurporsche SET moteur=$1, carburant=$2, puissance=$3 WHERE moteur=$4',
-        values: [req.body.moteur, req.body.carburant, req.body.puissance, req.body.ancienmoteur]
+        text: 'UPDATE gammeporsche SET modele=$1, moteur=$2, puissance=$3 WHERE modele=$4',
+        values: [req.body.modele, req.body.moteur, req.body.puissance, req.body.ancienmodele]
         }
     )
     }
-    else if ( req.body.moteur && req.body.carburant && req.body.puissance) {
+    else if ( req.body.modele && req.body.moteur && req.body.puissance) {
     console.log('Requete AJOUTE');
     await clientDB.query(
         {
-            text: 'INSERT INTO moteurporsche (moteur, carburant, puissance) VALUES($1, $2, $3)',
-            values: [req.body.moteur, req.body.carburant, req.body.puissance]
+            text: 'INSERT INTO gammeporsche (modele, moteur, puissance) VALUES($1, $2, $3)',
+            values: [req.body.modele, req.body.moteur, req.body.puissance]
         }
     )
     }

@@ -7,6 +7,7 @@ import { displayGammeporsche, updateGammePorsche } from './Gammeporsche.js';
 import { displayMoteurPorsche, updateMoteurPorsche } from './MoteurPorsche.js';
 
 import { apiDisplayMoteurPorsche, apiUpdateMoteurPorsche } from './api/moteur.js';
+import { apiDisplayGammeporsche, apiUpdateGammeporsche } from './api/gamme.js';
 
 const app = express();
 
@@ -21,6 +22,8 @@ app.post('/moteurporsche', updateMoteurPorsche);
 
 app.get('/api/moteurporsche', apiDisplayMoteurPorsche);
 app.post('/api/moteurporsche', apiUpdateMoteurPorsche);
+app.get('/api/gammeporsche', apiDisplayGammeporsche);
+app.post('/api/gammeporsche', apiUpdateGammeporsche);
 // Code Remi
 app.get('/', (req, res) => {
     res.send(`<html>
