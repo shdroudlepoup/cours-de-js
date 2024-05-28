@@ -1,23 +1,32 @@
 # A faire
 
-On a créé une API qui envoie les moteurs en JSON _(/api/moteurporsche)_
+On a transformé `/api/moteurporsche` en API "RESTFull", c'est à dire en utilisant les 4 verbes.
 
-Maintenant, il faut faire la même chose mais avec `/api/gammeporsche`
-
-
-Pour tester, tu peux le faire avec le web, mais c'est mieux avec "curl":
+1. Fais la même chose pour `/api/gammeporsche`
+2. Teste avec "curl". Voici les commandes que j'ai utilisé pour `/api/moteurporsche`
 
 ```shell
-curl -i http://172.18.126.3:3000/api/gammeporsche
+# Liste
+curl http://172.18.126.3:3000/api/moteurporsche | jq -S
+# Ajout
+curl -XPOST -H 'Content-Type: application/json' -d '{"moteur":"V18","carburant":"Gasoil","puissance":240}' http://
+172.18.126.3:3000/api/moteurporsche
+# Liste
+curl http://172.18.126.3:3000/api/moteurporsche | jq -S
+# Effacement
+curl -XDELETE http://172.18.126.3:3000/api/moteurporsche/V1
 ```
 
-Ensuite montre moi en `curl` comment ajouter une voiture. Pour les moteurs, la commande est:
+Crée des commandes "curl" pour tester ton API et écris les ici
 
 ```shell
-curl -i -XPOST -d 'moteur=aba' -d 'carburant=Essence' -d 'puissance=1050' http://172.18.126.3:3000/api/moteurporsche
+# Comandes curl pour lister, ajouter et effacer
+curl ...
 ```
 
-Et quand ça marche, n'oublie pas de "commiter" et synchroniser avec GitHub :wink:
+3. Ajoute un contrôle pour `POST` et `PUT` qui vont bien vérifier que le moteur de la voiture existe déjà.
+
+A chaque étape, n'oublie pas de "commiter" et synchroniser avec GitHub :wink:
 
 
 ## API "REST full"
