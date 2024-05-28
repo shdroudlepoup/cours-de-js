@@ -18,3 +18,14 @@ curl -i -XPOST -d 'moteur=aba' -d 'carburant=Essence' -d 'puissance=1050' http:/
 ```
 
 Et quand ça marche, n'oublie pas de "commiter" et synchroniser avec GitHub :wink:
+
+
+## API "REST full"
+
+L'URL doit être explicite. Exemple pour des livres: `/`books`/`nom-du-livre
+
+4 verbes :
+ * `GET`: lire. Exemple: `curl http://serveur:3000/books`
+ * `POST`: créer. Exemple: `curl -XPOST -d '{le JSON décrivant le nouveau livre}' http://serveur:3000/books`
+ * `PUT`: modifier. Exemple: `curl -XPUT -d '{le JSON de la modification}' http://serveur:3000/books/Livre123`
+ * `DELETE`: effacer. Exemple: `curl -XDELETE http://serveur:3000/books/Livre124`
