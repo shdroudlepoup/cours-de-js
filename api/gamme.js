@@ -124,6 +124,8 @@ export const apiUpdateGammeporsche = async (req, res) => {
       if (existingMoteur.rows.length != 1) blockRequest =  true;
     }
 
+    
+
     // TODO: vérifier que si la puissance existe dans la requête alors elle doit être > 0
 
     if (blockRequest) {
@@ -149,5 +151,18 @@ export const apiUpdateGammeporsche = async (req, res) => {
   } catch (error) {
     console.error('Erreur', error);
     res.status(500).json({ error });
+  }
+  
+  if (req.body.puissance) {
+    const puissanceValue = parseFloat(req.body.puissance);
+    if (!isNaN(puissanceValue) && puissanceValue > 0) {
+      await clientDB.query({
+        text: 'UPDATE gammeporsche SET puissance=$1 WHERE modele=$2',
+        values: [puissanceValue, req.params.modele]
+      });
+    } else {
+      res.status(400).json({ message: 'Invalid puissance value. It must be a positive number.' });
+      return;
+    }
   }
 }
